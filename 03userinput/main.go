@@ -7,6 +7,7 @@ import (
 )
 
 func main() {
+	// walrus operator is only inside function
 	welcome := "Welcome to user input section"
 	fmt.Println(welcome)
 
