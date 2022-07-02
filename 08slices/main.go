@@ -8,6 +8,12 @@ import (
 func main() {
 	fmt.Println("Welcome to Golang slices !")
 
+	// 	There are several ways to create a slice:
+
+	// *	Using the []datatype{values} format
+	// *	Create a slice from an array
+	// *	Using the make() function
+
 	var fruitList = []string{"Apple", "Orange", "Peach"}
 	fmt.Printf("Type of fruitList is %T\n", fruitList)
 
@@ -47,5 +53,15 @@ func main() {
 	var index int = 2
 	courses = append(courses[:index], courses[index+1:]...)
 	fmt.Println(courses)
+
+	// 	In Go, there are two functions that can be used to return the length and capacity of a slice:
+
+	// *	len() function - returns the length of the slice (the number of elements in the slice)
+	// *	cap() function - returns the capacity of the slice (the number of elements the slice can grow or shrink to)
+
+	my_slice := []string{"Go", "Python", "Javascript", "Ruby", "Haskel"}
+	fmt.Println("my_slice is :", my_slice)
+	fmt.Println("Length of my_slice is :", len(my_slice))
+	fmt.Println("Capacity of my_slice is :", cap(my_slice))
 
 }
