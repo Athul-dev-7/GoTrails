@@ -64,4 +64,14 @@ func main() {
 	fmt.Println("Length of my_slice is :", len(my_slice))
 	fmt.Println("Capacity of my_slice is :", cap(my_slice))
 
+	// You can create a slice by slicing an array
+	my_array := [6]int{1, 2, 3, 4, 5, 6}
+	fmt.Println("my_array is :", my_array)
+
+	myarr_slice := my_array[1:3]
+	fmt.Println("myarr_slice is :", myarr_slice)
+	fmt.Println("Length of my_array is :", len(my_array))
+	fmt.Println("Length of myarr_slice is :", len(myarr_slice))
+	fmt.Println("Capacity of myarr_slice is :", cap(myarr_slice))
+
 }
