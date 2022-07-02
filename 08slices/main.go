@@ -74,4 +74,10 @@ func main() {
 	fmt.Println("Length of myarr_slice is :", len(myarr_slice))
 	fmt.Println("Capacity of myarr_slice is :", cap(myarr_slice))
 
+	// The make() function can also be used to create a slice.
+
+	slice := make([]int, 5, 8)
+	fmt.Println("Slice is :", slice)
+	fmt.Println("Length of slice is :", len(slice))
+	fmt.Println("Capacity of slice is :", cap(slice))
 }
