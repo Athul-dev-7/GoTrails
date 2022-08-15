@@ -70,6 +70,26 @@ func main() {
 			}
 		}
 
+		// Switch
+		city := "London"
+
+		switch city {
+		case "New York":
+			// Code for New York
+		case "Berlin":
+			// Code for Berlin
+		case "Hong Kong", "Japan":
+			// Code for Hong Kong & Japan
+		case "Mexico":
+			// Code for Mexico
+		case "China":
+			// Code for China
+		case "Australia":
+			// Code for Australia
+		default:
+			fmt.Println("No valid city selected")
+		}
+
 	}
 
 }
