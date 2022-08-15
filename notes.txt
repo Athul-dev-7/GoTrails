@@ -2,3 +2,5 @@
     *   Why Go ?   
         -   Go was designed to run on multiple cores and built to support concurrency.
         -   Concurrency on Go is cheap and Easy.
+    *	Go map's can't have mixed data types
+    	-	var myMap = make(map[string]string)	
