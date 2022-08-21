@@ -1,34 +1,36 @@
-[07-08-2022 16:01]
-    *   Why Go ?   
-        -   Go was designed to run on multiple cores and built to support concurrency.
-        -   Concurrency on Go is cheap and Easy.
-    *	Map's can't have mixed data types.
-    	-	var myMap = make(map[string]string)	
-    *	Struct can have mixed data types.
-    	-	"type" keyword is using because we are defining a custom data type.
-    	-	type UserData struct {
-    			firstName string
-    			lastName string
-    			email string
-    			numberOfTickets uint
-    			isMale bool
-    		}
-    		var bookings = make([]UserData,0)
+*   Why Go ?   
+	-   Go was designed to run on multiple cores and built to support concurrency.
+	-   Concurrency on Go is cheap and Easy.
+*	Map's can't have mixed data types.
+	-	var myMap = make(map[string]string)	
+*	Struct can have mixed data types.
+	-	"type" keyword is using because we are defining a custom data type.
+	-	type UserData struct {
+			firstName string
+			lastName string
+			email string
+			numberOfTickets uint
+			isMale bool
+		}
+		var bookings = make([]UserData,0)
 
-[19-08-2022 10:07]
-	*	Goroutines
-			*	Go language provides a special feature known as a Goroutines. A Goroutine is a function or method which executes 
-				independently and simultaneously in connection with any other Goroutines present in your program. Or in other words, 
-				every concurrently executing activity in Go language is known as a Goroutines. You can consider a Goroutine like a 
-				light weighted thread. The cost of creating Goroutines is very small as compared to the thread. Every program contains 
-				at least a single Goroutine and that Goroutine is known as the main Goroutine. All the Goroutines are working under 
-				the main Goroutines if the main Goroutine terminated, then all the goroutine present in the program also terminated. 
-				Goroutine always works in the background.
-			*	You can create your own Goroutine simply by using go keyword as a prefixing to the function or method call.
-	*	Channels
-			*	In Go language, a channel is a medium through which a goroutine communicates with another goroutine and this 
-				communication is lock-free. Or in other words, a channel is a technique which allows to let one goroutine to send 
-				data to another goroutine. By default channel is bidirectional, means the goroutines can send or receive data 
-				through the same channel.
-			*	A channel is created using chan keyword and it can only transfer data of the same type, different types of data are 
-				not allowed to transport from the same channel.
+*	Goroutines
+		*	Go language provides a special feature known as a Goroutines. A Goroutine is a function or method which executes 
+			independently and simultaneously in connection with any other Goroutines present in your program. Or in other words, 
+			every concurrently executing activity in Go language is known as a Goroutines. You can consider a Goroutine like a 
+			light weighted thread. The cost of creating Goroutines is very small as compared to the thread. Every program contains 
+			at least a single Goroutine and that Goroutine is known as the main Goroutine. All the Goroutines are working under 
+			the main Goroutines if the main Goroutine terminated, then all the goroutine present in the program also terminated. 
+			Goroutine always works in the background.
+		*	You can create your own Goroutine simply by using go keyword as a prefixing to the function or method call.
+*	Channels
+		*	In Go language, a channel is a medium through which a goroutine communicates with another goroutine and this 
+			communication is lock-free. Or in other words, a channel is a technique which allows to let one goroutine to send 
+			data to another goroutine. By default channel is bidirectional, means the goroutines can send or receive data 
+			through the same channel.
+		*	A channel is created using chan keyword and it can only transfer data of the same type, different types of data are 
+			not allowed to transport from the same channel.
+		*	In Go language, the select statement is just like switch statement, but in the select statement, case statement refers 
+			to communication, i.e. sent or receive operation on the channel.If a select statement does not contain any case statement, 
+			then that select statement waits forever.In select statement, if multiple cases are ready to proceed, 
+			then one of them can be selected randoml
