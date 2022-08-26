@@ -26,18 +26,28 @@ var albums = []album{
 }
 
 func main() {
-	// Initialize a Gin router using Default.
 	router := gin.Default()
+
 	router.GET("/", welcomePage)
-	// Use the GET function to associate the GET HTTP method and /albums path with a handler function.
 	router.GET("/albums", getAlbums)
-	// Use the Run function to attach the router to an http.Server and start the server.
+	router.POST("/albums", postAlbums)
+
 	router.Run("localhost:8080")
 }
 
 // getAlbums responds with the list of all albums as JSON.
 func getAlbums(ctx *gin.Context) {
 	ctx.IndentedJSON(http.StatusOK, albums)
+}
+
+func postAlbums(ctx *gin.Context) {
+	var newAlbum album
+	if err := ctx.BindJSON(&newAlbum); err != nil {
+		return
+	}
+	albums = append(albums, newAlbum)
+	ctx.IndentedJSON(http.StatusCreated, newAlbum)
+
 }
 
 func welcomePage(ctx *gin.Context) {
