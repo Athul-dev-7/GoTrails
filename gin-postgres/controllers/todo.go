@@ -2,8 +2,10 @@ package controllers
 
 import (
 	"log"
+	"net/http"
 	"time"
 
+	"github.com/gin-gonic/gin"
 	"github.com/go-pg/pg"
 	"github.com/go-pg/pg/orm"
 )
@@ -34,4 +36,22 @@ var dbConnect *pg.DB
 
 func InitiateDB(db *pg.DB) {
 	dbConnect = db
+}
+
+func GetAlltodos(c *gin.Context) {
+	var todos []Todo
+	error := dbConnect.Model(&todos).Select()
+	if error != nil {
+		log.Printf("Error while getting all todos, Reason %v\n", error)
+		c.IndentedJSON(http.StatusInternalServerError, gin.H{
+			"status":  http.StatusInternalServerError,
+			"message": "Something went wrong",
+		})
+		return
+	}
+	c.IndentedJSON(http.StatusOK, gin.H{
+		"status":  http.StatusOK,
+		"message": "All Todos",
+		"data":    todos,
+	})
 }
