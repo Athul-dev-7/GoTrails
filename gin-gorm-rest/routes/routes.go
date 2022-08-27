@@ -8,4 +8,5 @@ import (
 
 func Routes(router *gin.Engine) {
 	router.GET("/", controllers.Home)
+	router.GET("/users", controllers.GetAllUsers)
 }
