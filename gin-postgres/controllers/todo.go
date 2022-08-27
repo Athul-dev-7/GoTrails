@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"time"
@@ -8,6 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-pg/pg"
 	"github.com/go-pg/pg/orm"
+	"github.com/google/uuid"
 )
 
 type Todo struct {
@@ -54,4 +56,36 @@ func GetAlltodos(c *gin.Context) {
 		"message": "All Todos",
 		"data":    todos,
 	})
+}
+func CreateTodo(c *gin.Context) {
+	var todo Todo
+	fmt.Println(todo)
+	c.BindJSON(&todo)
+	title := todo.Title
+	body := todo.Body
+	completed := todo.Completed
+	id := uuid.New().String()
+
+	insertError := dbConnect.Insert(&Todo{
+		ID:        id,
+		Title:     title,
+		Body:      body,
+		Completed: completed,
+		CreatedAt: time.Now(),
+		UpdatedAt: time.Now(),
+	})
+
+	if insertError != nil {
+		log.Printf("Error while inserting new todo into db, Reason: %v\n", insertError)
+		c.IndentedJSON(http.StatusInternalServerError, gin.H{
+			"status":  http.StatusInternalServerError,
+			"message": "Something went wrong",
+		})
+		return
+	}
+	c.IndentedJSON(http.StatusCreated, gin.H{
+		"status":  http.StatusCreated,
+		"message": "Todo created Successfully",
+	})
+
 }
