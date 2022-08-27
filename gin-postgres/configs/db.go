@@ -4,6 +4,8 @@ import (
 	"log"
 	"os"
 
+	"gin-postgres/controllers"
+
 	"github.com/go-pg/pg"
 )
 
@@ -21,6 +23,8 @@ func Connect() *pg.DB {
 		os.Exit(100)
 	}
 	log.Printf("Connected to DB")
+	controllers.CreateTodoTable(db)
+	controllers.InitiateDB(db)
 	return db
 
 }
