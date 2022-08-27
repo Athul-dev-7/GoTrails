@@ -1,6 +1,7 @@
 package main
 
 import (
+	"gin-postgres/configs"
 	"gin-postgres/routes"
 	"log"
 
@@ -8,6 +9,7 @@ import (
 )
 
 func main() {
+	configs.Connect()
 	router := gin.Default()
 	routes.Routes(router)
 
