@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"time"
@@ -59,7 +58,6 @@ func GetAlltodos(c *gin.Context) {
 }
 func CreateTodo(c *gin.Context) {
 	var todo Todo
-	fmt.Println(todo)
 	c.BindJSON(&todo)
 	title := todo.Title
 	body := todo.Body
@@ -86,6 +84,26 @@ func CreateTodo(c *gin.Context) {
 	c.IndentedJSON(http.StatusCreated, gin.H{
 		"status":  http.StatusCreated,
 		"message": "Todo created Successfully",
+	})
+
+}
+
+func GetSingleTodo(c *gin.Context) {
+	id := c.Param("todoId")
+	todo := &Todo{ID: id}
+	err := dbConnect.Select(todo)
+	if err != nil {
+		log.Printf("Error while getting a single todo, Reason: %v\n", err)
+		c.IndentedJSON(http.StatusNotFound, gin.H{
+			"status":  http.StatusNotFound,
+			"message": "Todo not found",
+		})
+		return
+	}
+	c.IndentedJSON(http.StatusOK, gin.H{
+		"status":  http.StatusOK,
+		"message": "Single Todo",
+		"data":    todo,
 	})
 
 }
