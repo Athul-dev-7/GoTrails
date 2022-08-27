@@ -13,6 +13,7 @@ func Routes(router *gin.Engine) {
 	router.POST("/todo", controllers.CreateTodo)
 	router.GET("/todo/:todoId", controllers.GetSingleTodo)
 	router.PUT("/todo/:todoId", controllers.EditTodo)
+	router.DELETE("/todo/:todoId", controllers.DeleteTodo)
 }
 
 func welcome(c *gin.Context) {

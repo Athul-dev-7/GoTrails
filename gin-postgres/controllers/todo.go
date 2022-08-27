@@ -126,3 +126,21 @@ func EditTodo(c *gin.Context) {
 		"message": "Todo Edited Successfully",
 	})
 }
+
+func DeleteTodo(c *gin.Context) {
+	todoId := c.Param("todoId")
+	todo := &Todo{ID: todoId}
+	err := dbConnect.Delete(todo)
+	if err != nil {
+		log.Printf("Error while deleting a single todo, Reason: %v\n", err)
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"status":  http.StatusInternalServerError,
+			"message": "Something went wrong",
+		})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"status":  http.StatusOK,
+		"message": "Todo deleted successfully",
+	})
+}
