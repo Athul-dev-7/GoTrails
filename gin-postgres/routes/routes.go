@@ -12,6 +12,7 @@ func Routes(router *gin.Engine) {
 	router.GET("/todos", controllers.GetAlltodos)
 	router.POST("/todo", controllers.CreateTodo)
 	router.GET("/todo/:todoId", controllers.GetSingleTodo)
+	router.PUT("/todo/:todoId", controllers.EditTodo)
 }
 
 func welcome(c *gin.Context) {

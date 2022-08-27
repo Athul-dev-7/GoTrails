@@ -107,3 +107,22 @@ func GetSingleTodo(c *gin.Context) {
 	})
 
 }
+func EditTodo(c *gin.Context) {
+	todoId := c.Param("todoId")
+	var todo Todo
+	c.BindJSON(&todo)
+	completed := todo.Completed
+	_, err := dbConnect.Model(&Todo{}).Set("completed = ?", completed).Where("id = ?", todoId).Update()
+	if err != nil {
+		log.Printf("Error, Reason: %v\n", err)
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"status":  500,
+			"message": "Something went wrong",
+		})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"status":  200,
+		"message": "Todo Edited Successfully",
+	})
+}
