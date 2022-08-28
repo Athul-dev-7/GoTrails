@@ -28,7 +28,7 @@ func GetAllUsers(ctx *gin.Context) {
 		log.Printf("Error while getting all users, Reason : %v\n", result.Error)
 		ctx.IndentedJSON(http.StatusInternalServerError, gin.H{
 			"status":  http.StatusInternalServerError,
-			"message": result.Error,
+			"message": result.Error.Error(),
 		})
 	} else if result.RowsAffected == 0 {
 		ctx.IndentedJSON(http.StatusOK, gin.H{
@@ -52,7 +52,7 @@ func GetUser(ctx *gin.Context) {
 		log.Printf("Error while getting specified user, Reason : %v\n", result.Error)
 		ctx.IndentedJSON(http.StatusInternalServerError, gin.H{
 			"status":  http.StatusInternalServerError,
-			"message": result.Error,
+			"message": result.Error.Error(),
 		})
 	}
 	if result.RowsAffected == 1 {
@@ -72,7 +72,7 @@ func CreateUsers(ctx *gin.Context) {
 		log.Printf("Error while creating new user, Reason : %v\n", result.Error)
 		ctx.IndentedJSON(http.StatusInternalServerError, gin.H{
 			"status":  http.StatusInternalServerError,
-			"message": result.Error,
+			"message": result.Error.Error(),
 		})
 	}
 	if result.RowsAffected > 1 {
@@ -93,7 +93,7 @@ func UpdateUser(ctx *gin.Context) {
 		log.Printf("Error while updating user, Reason : %v\n", result.Error)
 		ctx.IndentedJSON(http.StatusInternalServerError, gin.H{
 			"status":  http.StatusInternalServerError,
-			"message": result.Error,
+			"message": result.Error.Error(),
 		})
 	}
 	if result.RowsAffected == 1 {
@@ -113,7 +113,7 @@ func DeleteUser(ctx *gin.Context) {
 		log.Printf("Error while updating user, Reason : %v\n", result.Error)
 		ctx.IndentedJSON(http.StatusInternalServerError, gin.H{
 			"status":  http.StatusInternalServerError,
-			"message": result.Error,
+			"message": result.Error.Error(),
 		})
 	}
 	if result.RowsAffected == 0 {
@@ -139,16 +139,16 @@ func DeleteAllUser(ctx *gin.Context) {
 			"message": result.Error,
 		})
 	}
+	if result.RowsAffected == 0 {
+		ctx.IndentedJSON(http.StatusOK, gin.H{
+			"status":  http.StatusOK,
+			"message": "No users found",
+		})
+	}
 	if result.RowsAffected > 0 {
 		ctx.IndentedJSON(http.StatusOK, gin.H{
 			"status":  http.StatusOK,
 			"message": "Deleted all user",
-		})
-	}
-	if result.RowsAffected == 0 {
-		ctx.IndentedJSON(http.StatusOK, gin.H{
-			"status":  http.StatusOK,
-			"message": "No records to delete",
 		})
 	}
 }
