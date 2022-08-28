@@ -52,3 +52,24 @@ func CreateUsers(ctx *gin.Context) {
 		"rowsAffected": result.RowsAffected,
 	})
 }
+
+func UpdateUser(ctx *gin.Context) {
+	user := []models.User{}
+	result := config.DB.Where("id = ?", ctx.Param("userId")).First(&user)
+	ctx.BindJSON(&user)
+	result.Save(&user)
+	if result.Error != nil {
+		log.Printf("Error while updating user, Reason : %v\n", result.Error)
+		ctx.IndentedJSON(http.StatusInternalServerError, gin.H{
+			"status":  http.StatusInternalServerError,
+			"message": "Something went wrong",
+		})
+	}
+	ctx.IndentedJSON(http.StatusOK, gin.H{
+		"status":       http.StatusOK,
+		"message":      "Updated user",
+		"data":         &user,
+		"rowsAffected": result.RowsAffected,
+	})
+
+}

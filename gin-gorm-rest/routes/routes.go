@@ -10,4 +10,5 @@ func Routes(router *gin.Engine) {
 	router.GET("/", controllers.Home)
 	router.GET("/users", controllers.GetAllUsers)
 	router.POST("/users", controllers.CreateUsers)
+	router.PUT("/users/:userId", controllers.UpdateUser)
 }
