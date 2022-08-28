@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"gin-gorm-rest/config"
 	"gin-gorm-rest/models"
 	"log"
@@ -69,6 +70,25 @@ func UpdateUser(ctx *gin.Context) {
 		"status":       http.StatusOK,
 		"message":      "Updated user",
 		"data":         &user,
+		"rowsAffected": result.RowsAffected,
+	})
+
+}
+
+func DeleteUser(ctx *gin.Context) {
+	user := []models.User{}
+	result := config.DB.Where("id = ?", ctx.Param("userId")).Delete(&user)
+	fmt.Println(result)
+	if result.Error != nil {
+		log.Printf("Error while updating user, Reason : %v\n", result.Error)
+		ctx.IndentedJSON(http.StatusInternalServerError, gin.H{
+			"status":  http.StatusInternalServerError,
+			"message": "Something went wrong",
+		})
+	}
+	ctx.IndentedJSON(http.StatusOK, gin.H{
+		"status":       http.StatusOK,
+		"message":      "Deleted user",
 		"rowsAffected": result.RowsAffected,
 	})
 
