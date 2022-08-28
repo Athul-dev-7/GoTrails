@@ -33,3 +33,22 @@ func GetAllUsers(ctx *gin.Context) {
 	})
 
 }
+
+func CreateUsers(ctx *gin.Context) {
+	user := []models.User{}
+	ctx.BindJSON(&user)
+	result := config.DB.Create(&user)
+	if result.Error != nil {
+		log.Printf("Error while creating new user, Reason : %v\n", result.Error)
+		ctx.IndentedJSON(http.StatusInternalServerError, gin.H{
+			"status":  http.StatusInternalServerError,
+			"message": "Something went wrong",
+		})
+	}
+	ctx.IndentedJSON(http.StatusCreated, gin.H{
+		"status":       http.StatusCreated,
+		"message":      "Created new user",
+		"data":         &user,
+		"rowsAffected": result.RowsAffected,
+	})
+}
