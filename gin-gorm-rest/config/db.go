@@ -1,13 +1,15 @@
 package config
 
 import (
-	"gin-gorm-rest/models"
 	"log"
+
+	"gin-gorm-rest/models"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
+//  Here, we are defining an instance of the database.
 var DB *gorm.DB
 
 func Connect() {
